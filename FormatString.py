@@ -16,7 +16,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Create payload for format string bug exploitation")
 	parser.add_argument('format_number', help='offset of formater')
 	parser.add_argument('addr_to_o', help='address to overwrite')
-	parser.add_argument('addr_to_w', help='adress to write')
+	parser.add_argument('addr_to_w', help='address to write')
 	args = parser.parse_args()
 	
 	# add addr_to_o on the payload
