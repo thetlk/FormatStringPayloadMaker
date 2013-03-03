@@ -40,7 +40,7 @@ def main():
 	# add addr_to_o on the payload
 	payload = ""
 	for i in range(0, 4, 4/args.nformater):
-	    payload += pack('<i', int(args.addr_to_o, 16)+i)
+	    payload += pack('<I', int(args.addr_to_o, 16)+i)
 	
 	# add addr_to_w on the payload
 	args.addr_to_w = int(args.addr_to_w, 16)
